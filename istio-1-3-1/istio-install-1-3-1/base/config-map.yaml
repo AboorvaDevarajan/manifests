@@ -203,14 +203,10 @@ data:
         resources: {}
       {{- end }}
         securityContext:
-          runAsUser: 0
-          runAsNonRoot: false
           capabilities:
             add:
             - NET_ADMIN
-          {{- if .Values.global.proxy.privileged }}
           privileged: true
-          {{- end }}
         restartPolicy: Always
       {{- end }}
       {{  end -}}
@@ -225,9 +221,10 @@ data:
         imagePullPolicy: IfNotPresent
         resources: {}
         securityContext:
-          runAsUser: 0
-          runAsNonRoot: false
           privileged: true
+          capabilities:
+            add:
+            - NET_ADMIN
       {{ end }}
       {{- end }}
       containers:
